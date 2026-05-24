@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ObesityScan — Sistem Prediksi Status Obesitas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="bg-grid"></div>
+
+    <header class="site-header">
+        <div class="container">
+            <div class="brand">
+                <span class="brand-mark">◐</span>
+                <span class="brand-name">ObesityScan</span>
+            </div>
+            <nav class="meta-nav">
+                <span class="meta-tag">Ahmad Rizal Dwi Nugraha</span>
+                <span class="meta-tag">23.11.5396</span>
+                <span class="meta-tag accent">UTS Data Mining</span>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container main-wrap">
+
+        <section class="hero">
+            <span class="eyebrow">Sistem Prediksi Berbasis Machine Learning</span>
+            <h1 class="hero-title">
+                Prediksi status obesitas Anda<br>
+                <em>dalam hitungan detik</em>
+            </h1>
+            <p class="hero-sub">
+                Sistem ini menggunakan algoritma Random Forest yang telah dilatih pada 2.111 sampel data untuk
+                mengklasifikasikan status obesitas dan memberikan rekomendasi manajemen berat badan personal
+                berdasarkan tujuh indikator antropometri dan gaya hidup.
+            </p>
+        </section>
+
+        <section class="form-section card">
+            <div class="card-header">
+                <span class="step-no">01</span>
+                <h2>Masukkan Data Anda</h2>
+            </div>
+
+            <form id="prediction-form" class="prediction-form">
+
+                <div class="form-grid">
+
+                    <div class="field">
+                        <label for="height">Tinggi badan <span class="unit">(meter)</span></label>
+                        <input type="number" id="height" name="height" step="0.01" min="1.0" max="2.5"
+                               placeholder="1.70" required>
+                        <span class="hint">Contoh 1.70 untuk 170 cm</span>
+                    </div>
+
+                    <div class="field">
+                        <label for="weight">Berat badan <span class="unit">(kilogram)</span></label>
+                        <input type="number" id="weight" name="weight" step="0.1" min="20" max="300"
+                               placeholder="65" required>
+                        <span class="hint">Contoh 65 untuk 65 kg</span>
+                    </div>
+
+                    <div class="field">
+                        <label for="age">Usia <span class="unit">(tahun)</span></label>
+                        <input type="number" id="age" name="age" min="10" max="100"
+                               placeholder="22" required>
+                        <span class="hint">Rentang dataset 14 sampai 61 tahun</span>
+                    </div>
+
+                    <div class="field">
+                        <label for="gender">Jenis kelamin</label>
+                        <select id="gender" name="gender" required>
+                            <option value="" disabled selected>Pilih jenis kelamin</option>
+                            <option value="1">Laki-laki</option>
+                            <option value="0">Perempuan</option>
+                        </select>
+                        <span class="hint">Variabel demografi dasar</span>
+                    </div>
+
+                    <div class="field">
+                        <label for="faf">Frekuensi aktivitas fisik (FAF)</label>
+                        <select id="faf" name="faf" required>
+                            <option value="" disabled selected>Pilih frekuensi</option>
+                            <option value="0">Tidak pernah</option>
+                            <option value="1">1 sampai 2 hari per minggu</option>
+                            <option value="2">2 sampai 4 hari per minggu</option>
+                            <option value="3">4 sampai 5 hari per minggu</option>
+                        </select>
+                        <span class="hint">Olahraga atau aktivitas fisik terjadwal</span>
+                    </div>
+
+                    <div class="field">
+                        <label for="favc">Konsumsi makanan tinggi kalori (FAVC)</label>
+                        <select id="favc" name="favc" required>
+                            <option value="" disabled selected>Pilih jawaban</option>
+                            <option value="1">Ya, sering mengonsumsi</option>
+                            <option value="0">Tidak, jarang mengonsumsi</option>
+                        </select>
+                        <span class="hint">Makanan cepat saji, gorengan, snack manis</span>
+                    </div>
+
+                    <div class="field field-wide">
+                        <label for="ch2o">Konsumsi air harian (CH2O)</label>
+                        <select id="ch2o" name="ch2o" required>
+                            <option value="" disabled selected>Pilih jumlah</option>
+                            <option value="1">1 — Kurang dari 1 liter per hari</option>
+                            <option value="2">2 — Antara 1 sampai 2 liter per hari</option>
+                            <option value="3">3 — Lebih dari 2 liter per hari</option>
+                        </select>
+                        <span class="hint">WHO merekomendasikan minimal 2 liter per hari</span>
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary" id="submit-btn">
+                        <span class="btn-text">Analisis sekarang</span>
+                        <span class="btn-arrow">→</span>
+                    </button>
+                    <button type="reset" class="btn-secondary">Reset form</button>
+                </div>
+
+            </form>
+        </section>
+
+        <section id="result-section" class="result-section" style="display: none;">
+
+            <div class="card result-main">
+                <div class="card-header">
+                    <span class="step-no">02</span>
+                    <h2>Hasil Analisis</h2>
+                </div>
+
+                <div class="result-grid">
+
+                    <div class="prediction-badge" id="prediction-badge">
+                        <span class="badge-label">Prediksi Status</span>
+                        <span class="badge-value" id="prediction-value">—</span>
+                        <span class="badge-confidence" id="prediction-confidence">—</span>
+                    </div>
+
+                    <div class="bmi-display">
+                        <span class="bmi-label">Body Mass Index</span>
+                        <span class="bmi-value" id="bmi-value">—</span>
+                        <span class="bmi-category" id="bmi-category">—</span>
+                    </div>
+
+                </div>
+
+                <div class="probability-section">
+                    <h3>Distribusi Probabilitas Tiap Kelas</h3>
+                    <div id="probability-bars" class="prob-bars"></div>
+                </div>
+            </div>
+
+            <div class="card result-recommendation">
+                <div class="card-header">
+                    <span class="step-no">03</span>
+                    <h2>Rekomendasi Personal</h2>
+                </div>
+
+                <div class="rec-target">
+                    <div class="target-block">
+                        <span class="target-label">Rentang berat ideal</span>
+                        <span class="target-value" id="berat-ideal">—</span>
+                    </div>
+                    <div class="target-block emphasis" id="target-emphasis">
+                        <span class="target-label" id="arah-label">Target</span>
+                        <span class="target-value" id="target-selisih">—</span>
+                    </div>
+                </div>
+
+                <div class="lifestyle-section">
+                    <h3>Saran Gaya Hidup</h3>
+                    <ul id="lifestyle-list" class="lifestyle-list"></ul>
+                </div>
+
+                <div class="disclaimer">
+                    <strong>Disclaimer</strong> — Sistem ini merupakan alat bantu prediksi berbasis machine learning
+                    untuk tujuan edukasi dan penelitian akademik. Hasil prediksi tidak menggantikan diagnosis medis
+                    profesional. Untuk keputusan kesehatan, selalu konsultasikan dengan dokter atau ahli gizi.
+                </div>
+            </div>
+
+        </section>
+
+        <section id="error-section" class="error-card" style="display: none;">
+            <span class="error-icon">!</span>
+            <span id="error-message">Terjadi kesalahan</span>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>
+                Penelitian klasifikasi status obesitas menggunakan algoritma Random Forest
+            </p>
+            <p class="footer-meta">UTS Proyek Data Mining · obesitas scan </p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
