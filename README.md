@@ -14,7 +14,7 @@ Untuk mencoba live demo silakan klik link dibawah
 
 **Notebook**
 eksplorasi data, dan pelatihan model dapat dilihat pada link berikut:
-[CLICK HERE]([https://github.com](https://colab.research.google.com/drive/1objdXQ1H-Zs4ngNihLWMlR52sd0Q9JO-?usp=sharing)).
+[CLICK HERE](https://colab.research.google.com/drive/1objdXQ1H-Zs4ngNihLWMlR52sd0Q9JO-?usp=sharing).
 
 
 
