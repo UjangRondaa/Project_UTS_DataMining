@@ -10,11 +10,11 @@ Proyek ini merupakan implementasi dari penelitian UTS Mata Kuliah Proyek Data Mi
 
 **Live Demo**
 Untuk mencoba live demo silakan klik link dibawah
-[klik di sini](https://huggingface.co/spaces/ijalkeren/obesityscan)
+[KLIK DISINI](https://huggingface.co/spaces/ijalkeren/obesityscan)
 
 **Notebook**
 eksplorasi data, dan pelatihan model dapat dilihat pada link berikut:
-[klik di sini]([https://huggingface.co/spaces/ijalkeren/obesityscan](https://colab.research.google.com/drive/1objdXQ1H-Zs4ngNihLWMlR52sd0Q9JO-?usp=sharing)).
+[CLICK HERE]([https://github.com](https://colab.research.google.com/drive/1objdXQ1H-Zs4ngNihLWMlR52sd0Q9JO-?usp=sharing)).
 
 
 
